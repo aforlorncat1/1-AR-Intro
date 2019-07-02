@@ -139,6 +139,10 @@ We'll begin referring to putting data into our database as seeding the database.
 
 A Rake task is provided to execute the code in the seeds file (see Figure 8).  As the file is read in, the code executes.  Active Record is set up to log its activity, and, if we read through the output in the console, we can see that two SQL `INSERT` statements were executed - one for each dog.  For example something like, `INSERT INTO "dogs" ("name", ... ) VALUES (?, ... )  [["name", "Jayda"], ... ]`.
 
+**As there is a breaking change in the dependencies of the standalone_migrations gem, use rake db:seed_fix instead to seed your database.**
+These changes are reflected in your Rakefile. If your rake db:seed commands do not work, make sure your Rakefile looks like the one in this repo. 
+
+
 
 ### Release 8:  Open and Use the Console
 ```
