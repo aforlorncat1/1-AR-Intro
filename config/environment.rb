@@ -25,23 +25,11 @@ end
 
 
 # Set up ActiveRecord::Base to log its activity depending upon the value of ENV['AR_ENV']
-ActiveRecord::Base.logger = if ENV['AR_ENV'] == 'test'
-                              nil
-                            else
-                              Logger.new(STDOUT)
-                            end
+ActiveRecord::Base.logger = nil
+                         
 
-
-# Configure the database depending upon the value of ENV['AR_ENV']
-database_config = if ENV['AR_ENV'] == 'test'
-                    { :adapter  =>  "sqlite3",
-                      :database => "#{APP_ROOT}/db/test-database.sqlite3" }
-                  else
-                    { :adapter  =>  "sqlite3",
-                      :database => "#{APP_ROOT}/db/database.sqlite3" }
-                  end
-
-ActiveRecord::Base.establish_connection(database_config)
+database_config = YAML::load(File.open('db/config.yml'))
+ActiveRecord::Base.establish_connection(database_config["development"])
 
 
 # Establish connection between models and tables
