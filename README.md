@@ -99,10 +99,11 @@ We can determine the last migration to have run by asking for the version of the
 
 ### Release 3:  Run the Test Suite
 ```
-$ bundle exec rake spec
+$ rspec
 ```
 *Figure 6*.  Executing the Rake task for running the test suite.
 
+Ignore any instructions to use rake spec. *The rake commands extended by the standalone migrations gem does not include a spec command*
 As mentioned in the *Summary*, the Rake spec task is an alternative to the rspec command for running the test suite (see Figure 6).  In our app, we have a `spec/schema/dogs_table_spec.rb` file that tests the structure of our database.  According to the tests, there should be a `dogs` table with a series of expected columns (i.e., columns that are properly named and of the right type).  Because we've yet to run any migrations, all the tests should fail.
 
 
