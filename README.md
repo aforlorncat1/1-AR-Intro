@@ -22,11 +22,6 @@ The code base also supplies a Rakefile, providing us with a number of helpful ta
 
   The console task opens IRB with our application's environment loaded:  the models are available, the connection with the database is established, etc.  Whereas before we would interact with our database from the command line by running `SQLite3`, now we'll use the rake console.
 
-
-- `rake spec`
-
-  The spec task will run all of the spec files in our application (i.e., run the tests).  It's an alternative to the `rspec` command.
-
 - `rake db:taskname`
 
   The Rakefile includes a `:db` namespace that encapsulates a number of tasks related to the database:  `create`, `drop`, `migrate`, `rollback`, `seed`, and `version`.  We'll become very familiar with these tasks over the course of Recode.
@@ -37,7 +32,7 @@ The code base also supplies a Rakefile, providing us with a number of helpful ta
 
 
 ### Model-view-controller Organization
-This code base is setup for implementing the model-view-controller design pattern.  The files for each will be located in individual folders under `app/`.  As we begin working with Active Record, we won't work much with controllers and views, rather we'll focus on working with Active Record models.
+This code base is setup for implementing the model-view-controller design pattern.  The files for each will be located in individual folders under `app/`.  As we begin working with Active Record, we won't work much with controllers and views, rather we'll focus on working with Active Record models. The MVC framework will be explained further once we start delving into Sinatra.
 
 All of the model classes that we write will be located within the `app/models` folder.  Each class should be defined in its own file.  As an example, a `Dog` class has been written in the file `app/models/dog.rb`. This folder can contain both our Active Record models (i.e., the classes backed by the database) and also our normal Ruby classes.
 
@@ -192,9 +187,12 @@ $ bundle exec rake db:drop
 ```
 *Figure 11*.  Executing the Rake task to drop the database.
 
-Sometimes we'll decide to get rid of our database completely, though this shouldn't become a habit.  If we do want to remove our database we can drop it with a Rake task (see Figure 11).  Our SQLite3 database file will be removed.
+Sometimes we'll decide to get rid of our database completely, though this shouldn't become a habit.  If we do want to remove our database we can drop it with a Rake task (see Figure 11).  Our SQLite3 database file will be removed. If you encounter an ActiveRecord::NoEnvironmentInSchemaError: , append the following code to your rake command:
 
-
+```
+$ bundle exec rake db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+```
+ 
 ## Conclusion
 This exercise was designed to get us working with the code base that we'll be using as we proceed through Recode.  We'll grow accustomed to bundling, running Rake tasks, opening the console, etc.  We've also been exposed to a little bit of what Active Record does for us and how we interact with it, though this might be confusing at the moment.  The exercises that follow will focus on developing our understanding of specific aspects of Active Record.
 
