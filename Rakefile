@@ -1,16 +1,18 @@
 require 'standalone_migrations'
-require_relative "config/environment"
+
+module Rails
+  class Engine < Railtie
+    def load_seed
+      seed_file = paths["db/seeds.rb"].existent.first
+      return unless seed_file
+        load(seed_file)
+    end
+  end
+end
 
 StandaloneMigrations::Tasks.load_tasks
 
 desc 'Start IRB with application environment loaded'
 task "console" do
   exec "irb -r ./config/environment"
-end
-
-namespace :db do
-  desc "populate the database with sample data"
-  task :seed_fix do
-    require APP_ROOT.join('db', 'seeds.rb')
-  end
 end
